@@ -6,14 +6,12 @@ import com.yrx.datasourcemanager.manager.dao.extend.ParamMapper;
 import com.yrx.datasourcemanager.manager.dto.Response;
 import com.yrx.datasourcemanager.manager.pojo.ApiConfig;
 import com.yrx.datasourcemanager.manager.pojo.ParamProcessStep;
-import com.yrx.datasourcemanager.manager.pojo.ParamProcessStepExample;
 import com.yrx.datasourcemanager.manager.util.HttpUtil;
 import com.yrx.datasourcemanager.manager.vo.ApiInvokeVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,12 +52,12 @@ public class GatewayService {
                 .collect(Collectors.toList());
         Map<String, String> headers = new HashMap<>();
         for (ParamMapper.ApiParam headerParam : headerParams) {
-            ParamProcessStepExample example = new ParamProcessStepExample();
-            ParamProcessStepExample.Criteria criteria = example.createCriteria();
-            criteria.andApiIdEqualTo(apiConfig.getId());
-            criteria.andParamIdEqualTo(headerParam.getParamId());
-            List<ParamProcessStep> paramProcessSteps = paramProcessStepMapper.selectByExample(example);
-            paramProcessSteps.sort(Comparator.comparing(ParamProcessStep::getStepIndex));
+            String paramProcessSteps = headerParam.getParamProcessSteps();
+            String[] processStepIds = paramProcessSteps.split(",");
+            for (String processStepId : processStepIds) {
+                ParamProcessStep paramProcessStep = paramProcessStepMapper.selectByPrimaryKey(Integer.valueOf(processStepId.trim()));
+                processParam(paramProcessStep, vo);
+            }
         }
         return null;
     }
@@ -69,4 +67,7 @@ public class GatewayService {
         return null;
     }
 
+    private void processParam(ParamProcessStep paramProcessStep, ApiInvokeVO vo) {
+
+    }
 }

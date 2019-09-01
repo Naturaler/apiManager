@@ -41,12 +41,14 @@ create table param_config (
     update_time timestamp not null default now() comment '更新时间'
 ) comment '参数配置表';
 
+# drop table api_param_mapping;
 create table api_param_mapping (
     id int not null primary key auto_increment comment '自增主键',
     api_id int not null comment '接口id',
     param_id int not null comment '参数id',
     param_zone tinyint not null comment '参数位置：0(header)、1(body)、2(url)、3(form)',
     is_required boolean not null default false comment '是否必填',
+    process_step varchar(100) not null default '' comment '参数加工步骤id，按顺序用英文逗号连接',
     create_author varchar(50) not null comment '创建者',
     create_time timestamp not null default now() comment '创建时间',
     update_author varchar(50) not null comment '最后更新者',
@@ -69,7 +71,6 @@ create table param_process_step (
     param_id int not null comment 'param_config主键',
     process_type varchar(20) not null comment '加工类型',
     process_value varchar(200) not null comment '加工的入参id，param_config的id',
-    step_index int not null default 0 comment '加工顺序',
     create_author varchar(50) not null comment '创建者',
     create_time timestamp not null default now() comment '创建时间',
     update_author varchar(50) not null comment '最后更新者',

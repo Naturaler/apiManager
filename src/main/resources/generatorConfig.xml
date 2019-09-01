@@ -30,14 +30,14 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table tableName="api_config">
+        <table tableName="api_param_mapping">
             <property name="useActualColumnNames" value="false"/>
             <generatedKey column="ID" sqlStatement="mysql" identity="true" />
         </table>
-<!--        <table tableName="api_invoke_history">-->
-<!--            <property name="useActualColumnNames" value="false"/>-->
-<!--            <generatedKey column="ID" sqlStatement="mysql" identity="true" />-->
-<!--        </table>-->
+        <table tableName="param_process_step">
+            <property name="useActualColumnNames" value="false"/>
+            <generatedKey column="ID" sqlStatement="mysql" identity="true" />
+        </table>
 <!--        <table tableName="api_param_mapping">-->
 <!--            <property name="useActualColumnNames" value="false"/>-->
 <!--            <generatedKey column="ID" sqlStatement="mysql" identity="true" />-->

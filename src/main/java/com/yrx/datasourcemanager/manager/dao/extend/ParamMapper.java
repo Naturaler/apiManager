@@ -14,7 +14,7 @@ import java.util.List;
 public interface ParamMapper {
     @Select({
             "select",
-            "a.id api_id, p.id param_id, p.param_name, p.param_type, m.is_required, m.param_zone",
+            "a.id api_id, p.id param_id, p.param_name, p.param_type, m.is_required, m.process_step, m.param_zone",
             "from param_config p",
             "join api_param_mapping m on m.param_id = p.id",
             "join api_config a on a.id = m.api_id",
@@ -26,6 +26,7 @@ public interface ParamMapper {
             @Result(column = "param_name", property = "paramName", jdbcType = JdbcType.VARCHAR),
             @Result(column = "param_type", property = "paramType", jdbcType = JdbcType.VARCHAR),
             @Result(column = "param_zone", property = "paramZone", jdbcType = JdbcType.TINYINT),
+            @Result(column = "process_step", property = "paramProcessSteps", jdbcType = JdbcType.VARCHAR),
             @Result(column = "is_required", property = "isRequired", jdbcType = JdbcType.BOOLEAN),
     })
     List<ApiParam> listParamByApiId(Integer apiId);
@@ -37,6 +38,7 @@ public interface ParamMapper {
         private String paramName;
         private String paramType;
         private Short paramZone;
+        private String paramProcessSteps;
         private Boolean isRequired;
     }
 }
