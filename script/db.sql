@@ -70,7 +70,7 @@ create table param_process_step (
     api_id int not null comment 'api_config主键',
     param_id int not null comment 'param_config主键',
     process_type varchar(20) not null comment '加工类型',
-    process_value varchar(200) not null comment '加工的入参id，param_config的id',
+    process_value varchar(200) not null comment '加工的入参id，param_config的id，多个id间用英文逗号连接',
     create_author varchar(50) not null comment '创建者',
     create_time timestamp not null default now() comment '创建时间',
     update_author varchar(50) not null comment '最后更新者',
