@@ -8,7 +8,7 @@ import java.util.Map;
 /**
  * Created by r.x on 2019/9/2.
  */
-public interface IParamProcessStepService<T> {
+public interface IParamProcessStepService {
 
     /**
      * 参数加工逻辑
@@ -17,5 +17,11 @@ public interface IParamProcessStepService<T> {
      * @param lastStepResult 上一步执行结果
      * @return
      */
-    T processParam(ParamProcessStep paramProcessStep, ApiInvokeVO vo, Map<String, Object> lastStepResult);
+    Map<String, Object> processParam(ParamProcessStep paramProcessStep, ApiInvokeVO vo, Map<String, Object> lastStepResult);
+
+    /**
+     * 返回值的数据类型
+     * @return
+     */
+    Class resultType();
 }

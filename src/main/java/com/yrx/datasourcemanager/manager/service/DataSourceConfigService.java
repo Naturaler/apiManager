@@ -7,8 +7,6 @@ import com.yrx.datasourcemanager.manager.vo.DataSourceConfigVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-
 /**
  * Created by r.x on 2019/9/1.
  */
@@ -19,11 +17,7 @@ public class DataSourceConfigService {
     public String config(DataSourceConfigVO vo) {
         RequestType requestType = vo.getRequestType();
         if (requestType == RequestType.POST_JSON) {
-            try {
-                System.out.println("--->" + HttpUtil.postJson(vo.getUrl(), JSON.toJSONString(vo.getParams())));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            System.out.println("--->" + HttpUtil.postJson(vo.getUrl(), JSON.toJSONString(vo.getParams())));
         }
         return "hello world";
     }
