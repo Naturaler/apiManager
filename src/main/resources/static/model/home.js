@@ -37,7 +37,7 @@ function parseBlog() {
         "                        userId=\"root\"\n" +
         "                        password=\"root\">\n" +
         "```\n" +
-        "mapper代码示例\n" +
+        "### mapper代码示例\n" +
         "``` java\n" +
         "\n" +
         "package com.yrx.datasourcemanager.manager.dao.extend;\n" +
@@ -95,6 +95,8 @@ function parseBlog() {
             printOriginal(content);
         }
     }
+    // 加载高亮脚本
+    loadHighlightScript();
 }
 
 // h1 h2 h3 ...
@@ -145,4 +147,14 @@ function printOriginal(content) {
     pE.textContent = content;
     var kernelE = document.getElementById("kernel");
     kernelE.appendChild(pE);
+}
+
+// 高亮代码
+function loadHighlightScript() {
+    console.log("加载高亮脚本");
+    var codes = document.getElementsByTagName("pre");
+    for (var i = 0, len = codes.length; i < len; i++) {
+        var block = codes[i];
+        hljs.highlightBlock(block);
+    }
 }
