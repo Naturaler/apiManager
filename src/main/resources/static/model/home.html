@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="../plugin/highlight/styles/default.css">
   <title>行走的鸡汤</title>
 </head>
-<body onload="show()">
+<body onload="showTime()">
 <!-- 导航条 start -->
 <nav id="navigation">
 <ul>
@@ -24,24 +24,107 @@
 
 <!-- 中间核心 start -->
 <div id="kernel">
-<pre>
-  <code>
-  public Map&lt;String, Object> processParam(ParamProcessStep paramProcessStep, ApiInvokeVO vo, Map&lt;String, Object> lastStepResult) {
-        String processValue = paramProcessStep.getProcessValue();
-        String[] paramConfigIds = processValue.split(",");
-        ParamConfig paramConfig = paramConfigMapper.selectByPrimaryKey(Integer.valueOf(paramConfigIds[0]));
-        Optional&lt;Object> value = vo.getParams().stream()
-                .filter(item -> item.getParamName().equals(paramConfig.getParamName())
-                        && item.getParamType().equals(paramConfig.getParamType()))
-                .map(ApiInvokeVO.ParamVO::getParamValue)
-                .findFirst();
-        if (value.isPresent()) {
-            return Collections.singletonMap(ProcessServiceConstant.SERVICE_BASE64, Base64Util.encode(value.toString()));
-        }
-        return null;
-    }
-  </code>
-</pre>
+  <h1>spring boot整合mybatis</h1>
+  <p>time：2019-09-25 | category：code | tag：java、spring boot、mybatis</p>
+  <p>在spring boot项目上整合mybatis，实现快速执行CURD操作</p>
+  <h3>jdbc配置</h3>
+  <pre>
+    <code>
+spring.datasource.url=jdbc:mysql://localhost:3306/data_source?serverTimezone=UTC&useUnicode=true&characterEncoding=utf-8&useSSL=true
+spring.datasource.username=root
+spring.datasource.password=root
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+    </code>
+  </pre>
+  <h3>mybatis相关配置</h3>
+  <pre>
+    <code class="xml">
+&lt;?xml version="1.0" encoding="UTF-8"?>
+&lt;!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+&lt;generatorConfiguration>
+    &lt;classPathEntry location="C:\Users\r.x\.m2\repository\mysql\mysql-connector-java\8.0.17\mysql-connector-java-8.0.17.jar" />
+
+    &lt;context id="DB2Tables" targetRuntime="MyBatis3">
+        &lt;jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/data_source?serverTimezone=UTC"
+                        userId="root"
+                        password="root">
+        &lt;/jdbcConnection>
+
+        &lt;javaTypeResolver >
+            &lt;property name="forceBigDecimals" value="false" />
+        &lt;/javaTypeResolver>
+
+        &lt;javaModelGenerator targetPackage="com.yrx.datasourcemanager.manager.pojo" targetProject=".\src\main\java">
+            &lt;property name="enableSubPackages" value="true" />
+            &lt;property name="trimStrings" value="true" />
+        &lt;/javaModelGenerator>
+
+        &lt;sqlMapGenerator targetPackage="com.yrx.datasourcemanager.manager.xml"  targetProject=".\src\main\java">
+            &lt;property name="enableSubPackages" value="true" />
+        &lt;/sqlMapGenerator>
+
+        &lt;javaClientGenerator type="ANNOTATEDMAPPER" targetPackage="com.yrx.datasourcemanager.manager.dao"  targetProject=".\src\main\java">
+            &lt;property name="enableSubPackages" value="true" />
+        &lt;/javaClientGenerator>
+
+        &lt;table tableName="api_param_mapping">
+            &lt;property name="useActualColumnNames" value="false"/>
+            &lt;generatedKey column="ID" sqlStatement="mysql" identity="true" />
+        &lt;/table>
+        &lt;table tableName="param_process_step">
+            &lt;property name="useActualColumnNames" value="false"/>
+            &lt;generatedKey column="ID" sqlStatement="mysql" identity="true" />
+        &lt;/table>
+    &lt;/context>
+&lt;/generatorConfiguration>
+    </code>
+  </pre>
+  <h3>mapper代码示例</h3>
+  <pre>
+    <code>
+package com.yrx.datasourcemanager.manager.dao.extend;
+
+import com.yrx.datasourcemanager.manager.pojo.ParamConfig;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.type.JdbcType;
+
+import java.util.List;
+
+/**
+ * Created by r.x on 2019/9/2.
+ */
+public interface ParamConfigExtendMapper {
+
+    @Select({
+            "select",
+            "id, param_name, param_type, description, create_author, create_time, update_author, ",
+            "update_time",
+            "from param_config",
+            "where id in",
+            "&lt;foreach item=\"item\" collection=\"list\" separator=\",\" open=\"(\" close=\")\" index=\"index\">",
+            "#{item, jdbcType=INTEGER}",
+            "&lt;/foreach>"
+    })
+    @Results({
+            @Result(column = "id", property = "id", jdbcType = JdbcType.INTEGER, id = true),
+            @Result(column = "param_name", property = "paramName", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "param_type", property = "paramType", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "description", property = "description", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "create_author", property = "createAuthor", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "create_time", property = "createTime", jdbcType = JdbcType.TIMESTAMP),
+            @Result(column = "update_author", property = "updateAuthor", jdbcType = JdbcType.VARCHAR),
+            @Result(column = "update_time", property = "updateTime", jdbcType = JdbcType.TIMESTAMP)
+    })
+    List&lt;ParamConfig> listParamByIds(List&lt;Integer> paramConfigIds);
+}
+    </code>
+  </pre>
 </div>
 <!-- 中间核心 end -->
 
