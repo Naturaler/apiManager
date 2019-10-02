@@ -20,7 +20,7 @@ public interface ParamConfigExtendMapper {
             "from param_config",
             "where id in",
             "<foreach item=\"item\" collection=\"list\" separator=\",\" open=\"(\" close=\")\" index=\"index\">",
-            "#{item, jdbcType=JdbcType.INTEGER}",
+            "#{item, jdbcType=INTEGER}",
             "</foreach>"
     })
     @Results({

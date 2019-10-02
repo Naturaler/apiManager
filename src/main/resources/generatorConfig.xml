@@ -30,26 +30,10 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table tableName="api_param_mapping">
+        <!-- 目标表 -->
+        <table tableName="blog">
             <property name="useActualColumnNames" value="false"/>
             <generatedKey column="ID" sqlStatement="mysql" identity="true" />
         </table>
-        <table tableName="param_process_step">
-            <property name="useActualColumnNames" value="false"/>
-            <generatedKey column="ID" sqlStatement="mysql" identity="true" />
-        </table>
-<!--        <table tableName="api_param_mapping">-->
-<!--            <property name="useActualColumnNames" value="false"/>-->
-<!--            <generatedKey column="ID" sqlStatement="mysql" identity="true" />-->
-<!--        </table>-->
-<!--        <table tableName="data_source_config">-->
-<!--            <property name="useActualColumnNames" value="false"/>-->
-<!--            <generatedKey column="ID" sqlStatement="mysql" identity="true" />-->
-<!--        </table>-->
-<!--        <table tableName="param_process_step">-->
-<!--            <property name="useActualColumnNames" value="false"/>-->
-<!--            <generatedKey column="ID" sqlStatement="mysql" identity="true" />-->
-<!--        </table>-->
-
     </context>
 </generatorConfiguration>

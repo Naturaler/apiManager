@@ -14,24 +14,21 @@ function showTime() {
 function loadBlog() {
     var url = "http://localhost:9090/blog/api"
     ajaxPost(url, null, parseBlog, null, null)
-    var xmlHttp;
-    try {
-        // Firefox, Opera 8.0+, Safari
-        xmlHttp = new XMLHttpRequest();
-    } catch (e) {
-        // Internet Explorer
-        try {
-            xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
-        } catch (e) {
-            try {
-                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-            } catch (e) {
-                alert("您的浏览器不支持AJAX！");
-                return false;
-            }
-        }
-    }
-    return xmlHttp;
+}
+
+function getById() {
+    var id = document.getElementById("blogId").value;
+    var url = "http://localhost:9090/blog/get?id=" + id;
+    ajaxPost(url, null, parseBlog, null, null)
+}
+
+function saveBlog() {
+    var blog = document.getElementById("blog").value;
+    var url = "http://localhost:9090/blog/save";
+    var vo = {
+        "blog": blog
+    };
+    ajaxPost(url, JSON.stringify(vo), parseBlog, null, null)
 }
 
 // ajax post请求：

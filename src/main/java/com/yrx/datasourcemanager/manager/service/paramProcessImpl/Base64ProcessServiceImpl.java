@@ -7,6 +7,7 @@ import com.yrx.datasourcemanager.manager.pojo.ParamProcessStep;
 import com.yrx.datasourcemanager.manager.service.IParamProcessStepService;
 import com.yrx.datasourcemanager.manager.util.encry.Base64Util;
 import com.yrx.datasourcemanager.manager.vo.ApiInvokeVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ import java.util.Optional;
  * Created by r.x on 2019/9/2.
  */
 @Service
+@Slf4j
 public class Base64ProcessServiceImpl implements IParamProcessStepService {
 
     @Autowired

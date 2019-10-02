@@ -5,7 +5,9 @@ import com.yrx.datasourcemanager.manager.dao.extend.ParamConfigExtendMapper;
 import com.yrx.datasourcemanager.manager.pojo.ParamProcessStep;
 import com.yrx.datasourcemanager.manager.service.IParamProcessStepService;
 import com.yrx.datasourcemanager.manager.vo.ApiInvokeVO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.Map;
@@ -14,6 +16,8 @@ import java.util.TreeMap;
 /**
  * Created by r.x on 2019/9/3.
  */
+@Slf4j
+@Service
 public class SortListProcessServiceImpl implements IParamProcessStepService {
     @Autowired
     private ParamConfigExtendMapper paramConfigMapper;

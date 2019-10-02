@@ -1,9 +1,10 @@
 package com.yrx.datasourcemanager.manager.api;
 
+import com.yrx.datasourcemanager.manager.service.BlogService;
+import com.yrx.datasourcemanager.manager.vo.BlogVO;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by r.x on 2019/10/1.
@@ -12,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/blog")
 @Slf4j
 public class BlogApi {
+
+    @Autowired
+    private BlogService blogService;
 
     @PostMapping("/api")
     public String blog() {
@@ -61,5 +65,15 @@ public class BlogApi {
                 "} \n" +
                 "```";
         return source;
+    }
+
+    @PostMapping("/get")
+    public String getById(@RequestParam Integer id) {
+        return blogService.getById(id);
+    }
+
+    @PostMapping("/save")
+    public String save(@RequestBody BlogVO vo) {
+        return blogService.save(vo);
     }
 }

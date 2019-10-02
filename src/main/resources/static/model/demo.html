@@ -21,7 +21,10 @@
 </ul>
 </nav>
 <!-- 导航条 end -->
-<button onclick="loadBlog()">解析blog</button>
+<input type="text" value="blogId" id="blogId">
+<textarea rows="10" cols="20" id="blog"></textarea>
+<button onclick="getById()">解析blog</button>
+<button onclick="saveBlog()">保存blog</button>
 <!-- 中间核心 start -->
 <div id="kernel">
 
