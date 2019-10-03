@@ -2,22 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" type="text/css" href="./home.css">
   <link rel="stylesheet" type="text/css" href="../common/global.css">
+  <link rel="stylesheet" type="text/css" href="./navigation/navigation.css">
+  <link rel="stylesheet" type="text/css" href="./footnote/footnote.css">
+  <link rel="stylesheet" type="text/css" href="./home.css">
   <!-- 代码高亮的css -->
   <link rel="stylesheet" href="../plugin/highlight/style/default.css">
-  <title>行走的鸡汤</title>
+  <title>home | 行走的鸡汤</title>
 </head>
 <body onload="showTime()">
 <!-- 导航条 start -->
 <nav id="navigation">
 <ul>
   <li>行走的鸡汤</li>
-  <li class="selected">Home</li>
-  <li>Tag</li>
-  <li>Category</li>
-  <li>Archive</li>
-  <li>Tool</li>
+  <li class="selected" onclick="jump('/home')">Home</li>
+  <li onclick="jump('/tag/tag')">Tag</li>
+  <li onclick="jump('/category/category')">Category</li>
+  <li onclick="jump('/archive/archive')">Archive</li>
+  <li onclick="jump('/tool/tool')">Tool</li>
 </ul>
 </nav>
 <!-- 导航条 end -->
@@ -134,6 +136,9 @@ public interface ParamConfigExtendMapper {
   <span id="nowDiv"></span>
 </footer>
 <!-- 底部脚注 end -->
+<script type="text/javascript" src="../common/global.js"></script>
+<script type="text/javascript" src="./navigation/navigation.js"></script>
+<script type="text/javascript" src="./footnote/footnote.js"></script>
 <script type="text/javascript" src="./home.js"></script>
 <!-- 代码高亮的js -->
 <script src="../plugin/highlight/highlight.pack.js"></script>

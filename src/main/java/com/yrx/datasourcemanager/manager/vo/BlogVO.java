@@ -7,5 +7,7 @@ import lombok.Data;
  */
 @Data
 public class BlogVO {
+    private String title;
+    private String tag;
     private String blog;
 }

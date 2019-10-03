@@ -21,8 +21,8 @@ public class BlogService {
     public String save(BlogVO vo) {
         Blog pojo = new Blog();
         pojo.setBlog(vo.getBlog());
-        pojo.setTitle("title");
-        pojo.setTags("demo");
+        pojo.setTitle(vo.getTitle());
+        pojo.setTags(vo.getTag());
         pojo.setInsertTime(new Date());
         pojo.setUpdateTime(new Date());
         blogMapper.insert(pojo);

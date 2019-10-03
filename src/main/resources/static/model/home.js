@@ -1,18 +1,5 @@
-function showTime() {
-    var date = new Date(); //日期对象
-    var now = "";
-    now = date.getFullYear() + "-"; //读英文就行了
-    now = now + (date.getMonth() + 1) + "-"; //取月的时候取的是当前月-1如果想取当前月+1就可以了
-    now = now + date.getDate() + "-";
-    now = now + date.getHours() + ":";
-    now = now + date.getMinutes() + ":";
-    now = now + date.getSeconds() + "";
-    document.getElementById("nowDiv").innerHTML = now; //div的html是now这个字符串
-    setTimeout("showTime()", 1000); //设置过1000毫秒就是1秒，调用show方法
-}
-
 function loadBlog() {
-    var url = "http://localhost:9090/blog/api"
+    var url = "http://localhost:9090/blog/api";
     ajaxPost(url, null, parseBlog, null, null)
 }
 
@@ -20,56 +7,6 @@ function getById() {
     var id = document.getElementById("blogId").value;
     var url = "http://localhost:9090/blog/get?id=" + id;
     ajaxPost(url, null, parseBlog, null, null)
-}
-
-function saveBlog() {
-    var blog = document.getElementById("blog").value;
-    var url = "http://localhost:9090/blog/save";
-    var vo = {
-        "blog": blog
-    };
-    ajaxPost(url, JSON.stringify(vo), parseBlog, null, null)
-}
-
-// ajax post请求：
-function ajaxPost(url, data, fnSucceed, fnFail, fnLoading) {
-    var ajax = ajaxObject();
-    ajax.open("post", url, true);
-    ajax.setRequestHeader("Content-Type", "application/json");
-    ajax.onreadystatechange = function () {
-        if (ajax.readyState === 4) {
-            if (ajax.status === 200) {
-                fnSucceed(ajax.responseText);
-            } else {
-                fnFail("HTTP请求错误！错误码：" + ajax.status);
-            }
-        } else {
-            fnLoading();
-        }
-    };
-    ajax.send(data);
-}
-
-// ajax 对象
-function ajaxObject() {
-    var xmlHttp;
-    try {
-        // Firefox, Opera 8.0+, Safari
-        xmlHttp = new XMLHttpRequest();
-    } catch (e) {
-        // Internet Explorer
-        try {
-            xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
-        } catch (e) {
-            try {
-                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
-            } catch (e) {
-                alert("您的浏览器不支持AJAX！");
-                return false;
-            }
-        }
-    }
-    return xmlHttp;
 }
 
 function parseBlog(blog) {
