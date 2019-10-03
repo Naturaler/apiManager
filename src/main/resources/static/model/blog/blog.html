@@ -5,10 +5,12 @@
   <link rel="stylesheet" type="text/css" href="../../common/global.css">
   <link rel="stylesheet" type="text/css" href="../navigation/navigation.css">
   <link rel="stylesheet" type="text/css" href="../footnote/footnote.css">
-  <link rel="stylesheet" type="text/css" href="./edit.css">
-  <title>edit | 行走的鸡汤</title>
+  <link rel="stylesheet" type="text/css" href="blog.css">
+  <!-- 代码高亮的css -->
+  <link rel="stylesheet" href="../../plugin/highlight/style/default.css">
+  <title>blog | 行走的鸡汤</title>
 </head>
-<body onload="showTime()">
+<body>
 <!-- 导航条 start -->
 <nav id="navigation">
   <ul>
@@ -21,16 +23,10 @@
   </ul>
 </nav>
 <!-- 导航条 end -->
+
 <!-- 中间核心 start -->
 <div id="kernel">
-  <div>标题：<input type="text" id="blogTitle" title="标题" style="width: 80vw;height: 3vh"></div>
-  <div>摘要：<input type="text" id="blogDescription" title="摘要" style="width: 80vw;height: 3vh"></div>
-  <div>标签：<input type="text" id="blogTag" title="标签" style="width: 80vw;height: 3vh"></div>
-  <p>博文：</p><textarea rows="40" cols="200" id="blogContent" title="博文"></textarea>
-  <div>
-    <button onclick="saveBlog()">保存</button>
-    <button onclick="refreshPage()">清空</button>
-  </div>
+
 </div>
 <!-- 中间核心 end -->
 
@@ -43,6 +39,8 @@
 <script type="text/javascript" src="../../common/global.js"></script>
 <script type="text/javascript" src="../navigation/navigation.js"></script>
 <script type="text/javascript" src="../footnote/footnote.js"></script>
-<script type="text/javascript" src="./edit.js"></script>
+<script type="text/javascript" src="blog.js"></script>
+<!-- 代码高亮的js -->
+<script src="../../plugin/highlight/highlight.pack.js"></script>
 </body>
 </html>

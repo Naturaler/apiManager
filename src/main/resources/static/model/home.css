@@ -1,4 +1,44 @@
 /* kernel start */
+#kernel .blogItem {
+    margin: 40px 5px;
+}
+
+#kernel .blogItem p {
+    margin: 10px 0;
+}
+
+#kernel .blogItem h2 {
+
+}
+
+#kernel .blogItem h2 span:hover {
+    cursor: pointer;
+    border-bottom: 2px solid grey;
+    padding-bottom: 5px;
+}
+
+#kernel .blogItem hr {
+    border: 1px solid #f1f1f1;
+}
+
+.blogDate, .blogTag {
+    color: #cfcdcc;
+}
+
+.blogDate {
+    margin: 0 10px 0 0;
+}
+
+.blogTag {
+    margin: 0 10px;
+}
+
+.blogTag:hover {
+    color: black;
+    cursor: pointer;
+    /* 粗体 */
+    font-weight: bold;
+}
 
 /* kernel end */
 

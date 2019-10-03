@@ -1,10 +1,14 @@
 package com.yrx.datasourcemanager.manager.api;
 
+import com.yrx.datasourcemanager.manager.dto.BlogDTO;
+import com.yrx.datasourcemanager.manager.dto.Response;
 import com.yrx.datasourcemanager.manager.service.BlogService;
 import com.yrx.datasourcemanager.manager.vo.BlogVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * Created by r.x on 2019/10/1.
@@ -67,9 +71,19 @@ public class BlogApi {
         return source;
     }
 
+    @GetMapping("/list")
+    public Response<List<BlogDTO>> list() {
+        return blogService.list();
+    }
+
     @PostMapping("/get")
     public String getById(@RequestParam Integer id) {
         return blogService.getById(id);
+    }
+
+    @PostMapping("/getByBlogId")
+    public Response<BlogDTO> getByBlogId(@RequestParam Integer id) {
+        return blogService.getByBlogId(id);
     }
 
     @PostMapping("/save")
