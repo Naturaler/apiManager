@@ -71,8 +71,9 @@ public class BlogApi {
         return source;
     }
 
-    @GetMapping("/list")
+    @PostMapping("/list")
     public Response<List<BlogDTO>> list() {
+        log.info("list blog");
         return blogService.list();
     }
 

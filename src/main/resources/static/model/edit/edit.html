@@ -13,23 +13,25 @@
 <nav id="navigation">
   <ul>
     <li>行走的鸡汤</li>
-    <li class="selected" onclick="jump('/home')">Home</li>
+    <li onclick="jump('/home')">Home</li>
     <li onclick="jump('/tag/tag')">Tag</li>
     <li onclick="jump('/category/category')">Category</li>
     <li onclick="jump('/archive/archive')">Archive</li>
     <li onclick="jump('/tool/tool')">Tool</li>
+    <li class="selected" onclick="jump('/edit/edit')">Edit</li>
   </ul>
 </nav>
 <!-- 导航条 end -->
 <!-- 中间核心 start -->
 <div id="kernel">
-  <div>标题：<input type="text" id="blogTitle" title="标题" style="width: 80vw;height: 3vh"></div>
-  <div>摘要：<input type="text" id="blogDescription" title="摘要" style="width: 80vw;height: 3vh"></div>
-  <div>标签：<input type="text" id="blogTag" title="标签" style="width: 80vw;height: 3vh"></div>
-  <p>博文：</p><textarea rows="40" cols="200" id="blogContent" title="博文"></textarea>
+  <input class="blogInput" type="text" id="blogTitle" title="标题" placeholder="标题">
+  <input class="blogInput" type="text" id="blogDescription" title="摘要" placeholder="摘要">
+  <input class="blogInput" type="text" id="blogTag" title="标签" placeholder="标签">
+  <p></p>
+  <textarea class="blogContent" placeholder="博文" id="blogContent" title="博文"></textarea>
   <div>
-    <button onclick="saveBlog()">保存</button>
-    <button onclick="refreshPage()">清空</button>
+    <button class="editButton" onclick="saveBlog()">保存</button>
+    <button class="editButton" onclick="refreshPage()">清空</button>
   </div>
 </div>
 <!-- 中间核心 end -->

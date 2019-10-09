@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="../plugin/highlight/style/default.css">
   <title>home | 行走的鸡汤</title>
 </head>
-<body onload="showTime()">
+<body onload="listBlog()">
 <!-- 导航条 start -->
 <nav id="navigation">
 <ul>
@@ -20,46 +20,20 @@
   <li onclick="jump('/category/category')">Category</li>
   <li onclick="jump('/archive/archive')">Archive</li>
   <li onclick="jump('/tool/tool')">Tool</li>
+  <li onclick="jump('/edit/edit')">Edit</li>
 </ul>
 </nav>
 <!-- 导航条 end -->
 
 <!-- 中间核心 start -->
 <div id="kernel">
-  <div class="blogItem">
-    <h2><span onclick="getByBlogId(1)">小团队从0搭建的vOPS平台</span></h2>
-    <p>在当前微服务架构流行情况下，对于初创企业，可能就几个技术（2-20个不等），但是却要开发十多个应用，要维护几十台云机器，甚至可能是混合云的模式。</p>
-    <p><span class="blogDate">2019-09-23</span> <span class="blogTag">java</span> <span class="blogTag">mybatis</span></p>
-    <hr>
-  </div>
+<!--  <div class="blogItem">-->
+<!--    <h2><span onclick="getByBlogId(1)">小团队从0搭建的vOPS平台</span></h2>-->
+<!--    <p>在当前微服务架构流行情况下，对于初创企业，可能就几个技术（2-20个不等），但是却要开发十多个应用，要维护几十台云机器，甚至可能是混合云的模式。</p>-->
+<!--    <p><span class="blogDate">2019-09-23</span> <span class="blogTag">java</span> <span class="blogTag">mybatis</span></p>-->
+<!--    <hr>-->
+<!--  </div>-->
 
-  <div class="blogItem">
-    <h2>小团队从0搭建的vOPS平台</h2>
-    <p>在当前微服务架构流行情况下，对于初创企业，可能就几个技术（2-20个不等），但是却要开发十多个应用，要维护几十台云机器，甚至可能是混合云的模式。</p>
-    <p>2019-09-23 java mybatis</p>
-    <hr>
-  </div>
-
-  <div class="blogItem">
-    <h2>小团队从0搭建的vOPS平台</h2>
-    <p>在当前微服务架构流行情况下，对于初创企业，可能就几个技术（2-20个不等），但是却要开发十多个应用，要维护几十台云机器，甚至可能是混合云的模式。</p>
-    <p>2019-09-23 java mybatis</p>
-    <hr>
-  </div>
-
-  <div class="blogItem">
-    <h2>小团队从0搭建的vOPS平台</h2>
-    <p>在当前微服务架构流行情况下，对于初创企业，可能就几个技术（2-20个不等），但是却要开发十多个应用，要维护几十台云机器，甚至可能是混合云的模式。</p>
-    <p>2019-09-23 java mybatis</p>
-    <hr>
-  </div>
-
-  <div class="blogItem">
-    <h2>小团队从0搭建的vOPS平台</h2>
-    <p>在当前微服务架构流行情况下，对于初创企业，可能就几个技术（2-20个不等），但是却要开发十多个应用，要维护几十台云机器，甚至可能是混合云的模式。</p>
-    <p>2019-09-23 java mybatis</p>
-    <hr>
-  </div>
 </div>
 <!-- 中间核心 end -->
 
@@ -74,7 +48,7 @@
 <script type="text/javascript" src="./footnote/footnote.js"></script>
 <script type="text/javascript" src="./home.js"></script>
 <!-- 代码高亮的js -->
-<script src="../plugin/highlight/highlight.pack.js"></script>
-<script>hljs.initHighlightingOnLoad();</script>
+<!--<script src="../plugin/highlight/highlight.pack.js"></script>-->
+<!--<script>hljs.initHighlightingOnLoad();</script>-->
 </body>
 </html>
