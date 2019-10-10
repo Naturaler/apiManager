@@ -11,5 +11,7 @@ function saveBlog() {
         "blog": blogContent,
         "description": blogDescription
     };
-    ajaxPost(url, JSON.stringify(vo), null, null, null)
+    ajaxPost(url, JSON.stringify(vo), null, null, null);
+    // 返回首页
+    jump("/home");
 }

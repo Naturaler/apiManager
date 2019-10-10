@@ -33,19 +33,16 @@ function showBlogs(responseStr) {
 
 function printBlog(blogId, title, description, insertTime, tags) {
     // 标题
-    var titleSpanE = document.createElement("span");
-    titleSpanE.textContent = title;
-    titleSpanE.onclick = getByBlogId(blogId);
-    // titleSpanE.addEventListener("click", getByBlogId(blogId));
     var titleH2E = document.createElement("h2");
-    titleH2E.appendChild(titleSpanE);
+    titleH2E.innerHTML = "<span onclick='getByBlogId(" + blogId + ")'>" + title + "</span>";
     // 摘要
     var descPE = document.createElement("p");
     descPE.textContent = description;
     // 时间和标签
     var infoPE = document.createElement("p");
+    var date = new Date(insertTime);
     var insertTimeSpanE = document.createElement("span");
-    insertTimeSpanE.textContent = insertTime;
+    insertTimeSpanE.textContent = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDay();
     insertTimeSpanE.className = "blogDate";
     infoPE.appendChild(insertTimeSpanE);
     var tagArray = tags.split(",");
