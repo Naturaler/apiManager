@@ -1,0 +1,31 @@
+table {
+    /* 去除单元格间的空隙 */
+    border-collapse: collapse;
+    text-align: center;
+}
+
+.year {
+    font-size: 2em;
+    padding: 20px 5px;
+}
+
+.borderRight, .borderLeft {
+    width: 40vw;
+    padding: 8px;
+}
+
+.borderRight:hover, .borderLeft:hover {
+    font-weight: bold;
+    cursor: pointer;
+    border-bottom: 1px solid #333333;
+}
+
+.borderRight {
+    border-right: 1px solid #333333;
+    text-align: right;
+}
+
+.borderLeft {
+    border-left: 1px solid #333333;
+    text-align: left;
+}

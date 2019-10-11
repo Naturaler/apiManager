@@ -4,12 +4,13 @@
     margin: auto auto;
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-wrap: wrap-reverse;
 }
 
 #innerTag {
-
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap-reverse;
+    justify-content: center;
 }
 
 .wordCloud {
