@@ -5,6 +5,8 @@ import lombok.Data;
 import org.springframework.beans.BeanUtils;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by r.x on 2019/10/3.
@@ -22,5 +24,9 @@ public class BlogDTO {
         BlogDTO dto = new BlogDTO();
         BeanUtils.copyProperties(blog, dto);
         return dto;
+    }
+
+    public static List<BlogDTO> convertBlogToDto(List<Blog> blogs) {
+        return blogs.stream().map(item -> convertBlogToDto(item)).collect(Collectors.toList());
     }
 }

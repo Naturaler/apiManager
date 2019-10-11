@@ -3,12 +3,14 @@ package com.yrx.datasourcemanager.manager.api;
 import com.yrx.datasourcemanager.manager.dto.BlogDTO;
 import com.yrx.datasourcemanager.manager.dto.Response;
 import com.yrx.datasourcemanager.manager.service.BlogService;
+import com.yrx.datasourcemanager.manager.service.TagService;
 import com.yrx.datasourcemanager.manager.vo.BlogVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by r.x on 2019/10/1.
@@ -20,6 +22,8 @@ public class BlogApi {
 
     @Autowired
     private BlogService blogService;
+    @Autowired
+    private TagService tagService;
 
     @PostMapping("/api")
     public String blog() {
@@ -90,5 +94,16 @@ public class BlogApi {
     @PostMapping("/save")
     public String save(@RequestBody BlogVO vo) {
         return blogService.save(vo);
+    }
+
+    @GetMapping("/listTags")
+    public Response<Set<String>> listTags() {
+        log.info("list tags");
+        return tagService.listTags();
+    }
+
+    @GetMapping("/listByTag")
+    public Response<List<BlogDTO>> listByTag(@RequestParam String tag) {
+        return tagService.listByTag(tag);
     }
 }

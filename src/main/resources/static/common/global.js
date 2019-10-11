@@ -36,6 +36,24 @@ function ajaxPost(url, data, fnSucceed, fnFail, fnLoading) {
     ajax.send(data);
 }
 
+// ajax post请求：
+function ajaxGet(url, fnSucceed, fnFail, fnLoading) {
+    var ajax = ajaxObject();
+    ajax.open("get", url, true);
+    ajax.onreadystatechange = function () {
+        if (ajax.readyState === 4) {
+            if (ajax.status === 200) {
+                fnSucceed(ajax.responseText);
+            } else {
+                fnFail("HTTP请求错误！错误码：" + ajax.status);
+            }
+        } else {
+            fnLoading();
+        }
+    };
+    ajax.send();
+}
+
 // ajax 对象
 function ajaxObject() {
     var xmlHttp;

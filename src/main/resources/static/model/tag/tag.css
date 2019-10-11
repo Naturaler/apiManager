@@ -1,0 +1,27 @@
+#tags {
+    width: 50vw;
+    height: 80vh;
+    margin: auto auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap-reverse;
+}
+
+#innerTag {
+
+}
+
+.wordCloud {
+    border-bottom: 1px solid #333333;
+    font-size: 1.5em;
+    margin: 10px 20px;
+    padding: 10px 5px;
+    display: inline-block;
+}
+
+.wordCloud:hover {
+    cursor: pointer;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+}
