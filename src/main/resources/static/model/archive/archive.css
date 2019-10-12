@@ -2,6 +2,7 @@ table {
     /* 去除单元格间的空隙 */
     border-collapse: collapse;
     text-align: center;
+    color: #333333;
 }
 
 .year {
