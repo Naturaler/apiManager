@@ -1,7 +1,9 @@
 package com.yrx.datasourcemanager.manager.api;
 
+import com.yrx.datasourcemanager.manager.dto.ArchiveDTO;
 import com.yrx.datasourcemanager.manager.dto.BlogDTO;
 import com.yrx.datasourcemanager.manager.dto.Response;
+import com.yrx.datasourcemanager.manager.service.ArchiveService;
 import com.yrx.datasourcemanager.manager.service.BlogService;
 import com.yrx.datasourcemanager.manager.service.TagService;
 import com.yrx.datasourcemanager.manager.vo.BlogVO;
@@ -24,6 +26,8 @@ public class BlogApi {
     private BlogService blogService;
     @Autowired
     private TagService tagService;
+    @Autowired
+    private ArchiveService archiveService;
 
     @PostMapping("/api")
     public String blog() {
@@ -100,6 +104,12 @@ public class BlogApi {
     public Response<Set<String>> listTags() {
         log.info("list tags");
         return tagService.listTags();
+    }
+
+    @GetMapping("/listArchives")
+    public Response<List<ArchiveDTO>> listArchives() {
+        log.info("list archive");
+        return archiveService.listArchives();
     }
 
     @GetMapping("/listByTag")

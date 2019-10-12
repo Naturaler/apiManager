@@ -1,5 +1,6 @@
-function loadArchives(responseStr) {
-    var url = "http://localhost:9090/";
+function loadArchives() {
+    var url = "http://localhost:9090/blog/listArchives";
+    ajaxGet(url, printArchive, null, null);
 }
 
 function printArchive(responseStr) {
@@ -19,7 +20,7 @@ function printArchive(responseStr) {
             yearTrE.appendChild(yearTdE);
             table.appendChild(yearTrE);
 
-            var blogs = archive.blogs;
+            var blogs = archive.archiveBlogs;
             var right = true;
             for (var j = 0; j < blogs.length; j++) {
                 var blog = blogs[j];
@@ -28,12 +29,12 @@ function printArchive(responseStr) {
 
                 if (right) {
                     var rightTrE = document.createElement("tr");
-                    rightTrE.innerHTML = "<td class=\"borderRight\">" + title + "</td><td></td>";
+                    rightTrE.innerHTML = "<td class=\"borderRight\" onclick='readBlog(" + blogId + ")'>" + title + "</td><td></td>";
                     table.appendChild(rightTrE);
                     right = false;
                 } else {
                     var leftTrE = document.createElement("tr");
-                    leftTrE.innerHTML = "<td></td><td class=\"borderLeft\">"+title+"</td>";
+                    leftTrE.innerHTML = "<td></td><td class=\"borderLeft\" onclick='readBlog(" + blogId + ")'>" + title + "</td>";
                     table.appendChild(leftTrE);
                     right = true;
                 }

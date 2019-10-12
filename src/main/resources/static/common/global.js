@@ -75,3 +75,7 @@ function ajaxObject() {
     }
     return xmlHttp;
 }
+
+function readBlog(id) {
+    location.href = "http://localhost:9090/model/blog/blog.html?blogId=" + id;
+}

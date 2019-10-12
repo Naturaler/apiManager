@@ -9,10 +9,6 @@ function getById() {
     ajaxPost(url, null, parseBlog, null, null)
 }
 
-function getByBlogId(id) {
-    location.href = "http://localhost:9090/model/blog/blog.html?blogId=" + id;
-}
-
 // 加载列表
 function listBlog() {
     var url = "http://localhost:9090/blog/list";
@@ -34,7 +30,7 @@ function showBlogs(responseStr) {
 function printBlog(blogId, title, description, insertTime, tags) {
     // 标题
     var titleH2E = document.createElement("h2");
-    titleH2E.innerHTML = "<span onclick='getByBlogId(" + blogId + ")'>" + title + "</span>";
+    titleH2E.innerHTML = "<span onclick='readBlog(" + blogId + ")'>" + title + "</span>";
     // 摘要
     var descPE = document.createElement("p");
     descPE.textContent = description;
