@@ -38,7 +38,7 @@ function printBlog(blogId, title, description, insertTime, tags) {
     var infoPE = document.createElement("p");
     var date = new Date(insertTime);
     var insertTimeSpanE = document.createElement("span");
-    insertTimeSpanE.textContent = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDay();
+    insertTimeSpanE.textContent = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
     insertTimeSpanE.className = "blogDate";
     infoPE.appendChild(insertTimeSpanE);
     var tagArray = tags.split(",");

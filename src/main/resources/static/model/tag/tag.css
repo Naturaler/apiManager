@@ -3,12 +3,16 @@
     height: 80vh;
     margin: auto auto;
     display: flex;
+    /* 垂直居中 */
     align-items: center;
+    /* 水平居中 */
+    justify-content: center;
 }
 
 #innerTag {
     display: flex;
     align-items: center;
+    /* 倒序排列 */
     flex-wrap: wrap-reverse;
     justify-content: center;
 }

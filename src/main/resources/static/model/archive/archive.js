@@ -12,12 +12,13 @@ function printArchive(responseStr) {
             var archive = data[i];
             // 年份
             var year = archive.year;
-            var yearTdE = document.createElement("td");
-            yearTdE.colSpan = 2;
-            yearTdE.className = "year";
-            yearTdE.textContent = year;
+            // var yearTdE = document.createElement("td");
+            // yearTdE.colSpan = 2;
+            // yearTdE.className = "year";
+            // yearTdE.textContent = year;
+            // yearTrE.appendChild(yearTdE);
             var yearTrE = document.createElement("tr");
-            yearTrE.appendChild(yearTdE);
+            yearTrE.innerHTML = "<td colspan=\"2\" class=\"year\">" + year + "</td>";
             table.appendChild(yearTrE);
 
             var blogs = archive.archiveBlogs;

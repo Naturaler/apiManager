@@ -22,13 +22,31 @@ function parseResponse(responseStr) {
     var response = JSON.parse(responseStr);
     if (response.code === 1) {
         var blogDto = response.data;
-        parseBlog(blogDto.blog);
+        parseBlog(blogDto);
     } else {
         console.log("数据异常 " + responseStr)
     }
 }
 
-function parseBlog(blog) {
+function parseBlog(blogDto) {
+    var title = blogDto.title;
+    var description = blogDto.description;
+    var insertTime = new Date(blogDto.insertTime);
+
+    // 标题
+    var titleE = document.getElementById("blogTitle");
+    titleE.textContent = title;
+
+    // 时间
+    var insertTimeE = document.getElementById("insertTime");
+    insertTimeE.textContent = insertTime.getFullYear() + "." + (insertTime.getMonth() + 1) + "." + insertTime.getDate();
+
+    // 描述
+    var descriptionE = document.getElementById("blogDescription");
+    descriptionE.textContent = description;
+
+    // 博文
+    var blog = blogDto.blog;
     var lines = blog.split("\n");
     var code = "";
     var language = "";
