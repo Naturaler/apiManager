@@ -1,16 +1,16 @@
 // 显示当前时间
-function showTime() {
-    var date = new Date(); //日期对象
-    var now = "";
-    now = date.getFullYear() + "-"; //读英文就行了
-    now = now + (date.getMonth() + 1) + "-"; //取月的时候取的是当前月-1如果想取当前月+1就可以了
-    now = now + date.getDate() + "-";
-    now = now + date.getHours() + ":";
-    now = now + date.getMinutes() + ":";
-    now = now + date.getSeconds() + "";
-    document.getElementById("nowDiv").innerHTML = now; //div的html是now这个字符串
-    setTimeout("showTime()", 1000); //设置过1000毫秒就是1秒，调用show方法
-}
+// function showTime() {
+//     var date = new Date(); //日期对象
+//     var now = "";
+//     now = date.getFullYear() + "-"; //读英文就行了
+//     now = now + (date.getMonth() + 1) + "-"; //取月的时候取的是当前月-1如果想取当前月+1就可以了
+//     now = now + date.getDate() + "-";
+//     now = now + date.getHours() + ":";
+//     now = now + date.getMinutes() + ":";
+//     now = now + date.getSeconds() + "";
+//     document.getElementById("nowDiv").innerHTML = now; //div的html是now这个字符串
+//     setTimeout("showTime()", 1000); //设置过1000毫秒就是1秒，调用show方法
+// }
 
 // 刷新页面
 function refreshPage() {
@@ -76,6 +76,7 @@ function ajaxObject() {
     return xmlHttp;
 }
 
+// 查看博文
 function readBlog(id) {
     location.href = "http://localhost:9090/model/blog/blog.html?blogId=" + id;
 }

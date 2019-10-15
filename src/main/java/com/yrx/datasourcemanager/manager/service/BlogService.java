@@ -24,6 +24,16 @@ public class BlogService {
     private BlogMapper blogMapper;
 
     public String save(BlogVO vo) {
+        if (vo.getId() != null) {
+            Blog blog = blogMapper.selectByPrimaryKey(vo.getId());
+            blog.setBlog(vo.getBlog());
+            blog.setTitle(vo.getTitle());
+            blog.setDescription(vo.getDescription());
+            blog.setTags(vo.getTag());
+            blog.setUpdateTime(new Date());
+            blogMapper.updateByPrimaryKey(blog);
+            return "update success";
+        }
         Blog pojo = new Blog();
         pojo.setBlog(vo.getBlog());
         pojo.setTitle(vo.getTitle());

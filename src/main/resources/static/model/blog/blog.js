@@ -1,5 +1,5 @@
 loadBlog();
-showTime();
+// showTime();
 
 function loadBlog() {
     var url = location.search;
@@ -148,4 +148,19 @@ function loadHighlightScript() {
         var block = codes[i];
         hljs.highlightBlock(block);
     }
+}
+
+// 编辑博文
+function editBlog() {
+    var url = location.search;
+    var index = url.indexOf("?");
+    var blogId = -1;
+    if (index !== -1) {
+        var param = url.substring(index + 1, url.length);
+        var mapping = param.split("=");
+        if (mapping[0] === "blogId") {
+            blogId = mapping[1];
+        }
+    }
+    location.href = "http://localhost:9090/model/edit/edit.html?blogId=" + blogId;
 }
