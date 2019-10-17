@@ -4,6 +4,7 @@ import com.yrx.datasourcemanager.manager.dao.BlogMapper;
 import com.yrx.datasourcemanager.manager.dto.BlogDTO;
 import com.yrx.datasourcemanager.manager.dto.Response;
 import com.yrx.datasourcemanager.manager.pojo.Blog;
+import com.yrx.datasourcemanager.manager.pojo.BlogExample;
 import com.yrx.datasourcemanager.manager.vo.BlogVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -41,6 +42,7 @@ public class BlogService {
         pojo.setTags(vo.getTag());
         pojo.setInsertTime(new Date());
         pojo.setUpdateTime(new Date());
+        pojo.setSoftDelete(Byte.valueOf("0"));
         blogMapper.insert(pojo);
         return "success";
     }
@@ -50,7 +52,11 @@ public class BlogService {
     }
 
     public Response<List<BlogDTO>> list() {
-        List<Blog> blogs = blogMapper.selectByExample(null);
+        BlogExample example = new BlogExample();
+        BlogExample.Criteria criteria = example.createCriteria();
+        // 只查询未软删除的blog
+        criteria.andSoftDeleteEqualTo(Byte.valueOf("0"));
+        List<Blog> blogs = blogMapper.selectByExample(example);
         List<BlogDTO> dtos = new ArrayList<>(blogs.size());
         blogs.forEach(blog -> {
             BlogDTO dto = new BlogDTO();
@@ -64,5 +70,12 @@ public class BlogService {
         Blog blog = blogMapper.selectByPrimaryKey(id);
         BlogDTO dto = BlogDTO.convertBlogToDto(blog);
         return Response.success(dto);
+    }
+
+    public Response<Integer> deleteById(Integer id) {
+        Blog blog = blogMapper.selectByPrimaryKey(id);
+        blog.setSoftDelete(Byte.valueOf("1"));
+        blogMapper.updateByPrimaryKey(blog);
+        return Response.success(id);
     }
 }

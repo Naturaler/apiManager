@@ -116,4 +116,9 @@ public class BlogApi {
     public Response<List<BlogDTO>> listByTag(@RequestParam String tag) {
         return tagService.listByTag(tag);
     }
+
+    @GetMapping("/deleteById")
+    public Response<Integer> deleteById(@RequestParam Integer id) {
+        return blogService.deleteById(id);
+    }
 }

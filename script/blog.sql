@@ -8,4 +8,6 @@ create table blog(
     update_time datetime not null default now() comment '更新时间'
 ) comment '博客表';
 
-drop table blog;
+# drop table blog;
+
+alter table blog add column soft_delete tinyint not null default 0 comment '软删除标签：0（未删除）；1（删除）';

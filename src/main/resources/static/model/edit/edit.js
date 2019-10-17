@@ -64,3 +64,9 @@ function printEditingBlog(responseStr) {
         console.log("数据异常 " + responseStr)
     }
 }
+
+function softDeleteBlog() {
+    var blogId = getBlogIdFromUrl();
+    var url = "http://localhost:9090/blog/deleteById?id=" + blogId;
+    ajaxGet(url, null, null, null);
+}
