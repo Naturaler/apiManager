@@ -1,12 +1,16 @@
 /* 输入框 开始*/
-.blogInput, .blogContent {
+.blogInput, .blogContent, .blogSelect {
     width: 80vw;
     border: none;
 }
-.blogInput {
+
+.blogInput, .blogSelect {
     height: 3vh;
-    display: block;
     line-height: 3vh;
+}
+
+.blogInput {
+    display: block;
     border-bottom: solid 1px grey;
     margin: 10px 0;
 }
@@ -16,6 +20,13 @@
     height: 65vh;
 }
 /* 输入框 结束*/
+
+/* 下拉框 start */
+.blogSelect {
+    border: 1px solid gray;
+    margin-bottom: 10px;
+}
+/* 下拉框 end */
 
 /* 按钮 开始 */
 .editButton {

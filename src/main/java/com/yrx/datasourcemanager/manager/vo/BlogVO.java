@@ -12,4 +12,5 @@ public class BlogVO {
     private String description;
     private String tag;
     private String blog;
+    private String category;
 }

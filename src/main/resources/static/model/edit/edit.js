@@ -4,12 +4,14 @@ function saveBlog() {
     var blogTag = document.getElementById("blogTag").value;
     var blogContent = document.getElementById("blogContent").value;
     var blogDescription = document.getElementById("blogDescription").value;
+    var blogCategory = document.getElementById("blogCategory").value;
     var url = "http://localhost:9090/blog/save";
     var vo = {
         "title": blogTitle,
         "tag": blogTag,
         "blog": blogContent,
-        "description": blogDescription
+        "description": blogDescription,
+        "category": blogCategory
     };
     var blogId = getBlogIdFromUrl();
     if (blogId != null) {
@@ -60,6 +62,9 @@ function printEditingBlog(responseStr) {
         // 博文
         var blogContent = document.getElementById("blogContent");
         blogContent.value = blogDto.blog;
+        // 类别
+        var blogCategory = document.getElementById("blogCategory");
+        blogCategory.selected = blogDto.category;
     } else {
         console.log("数据异常 " + responseStr)
     }
@@ -69,4 +74,27 @@ function softDeleteBlog() {
     var blogId = getBlogIdFromUrl();
     var url = "http://localhost:9090/blog/deleteById?id=" + blogId;
     ajaxGet(url, null, null, null);
+}
+
+// 加载category
+listCategories();
+
+function listCategories() {
+    var url = "http://localhost:9090/config/listCategories";
+    ajaxGet(url, printCategory, null, null);
+}
+
+function printCategory(responseStr) {
+    var response = JSON.parse(responseStr);
+    if (response.code === 1) {
+        var blogCategory = document.getElementById("blogCategory");
+        var data = response.data;
+        for (var i = 0; i < data.length; i++) {
+            var category = data[i];
+            var optionE = document.createElement("option");
+            optionE.value = category;
+            optionE.textContent = category;
+            blogCategory.appendChild(optionE);
+        }
+    }
 }

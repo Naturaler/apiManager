@@ -19,6 +19,7 @@ public class BlogDTO {
     private String blog;
     private Date insertTime;
     private String tags;
+    private String category;
 
     public static BlogDTO convertBlogToDto(Blog blog) {
         BlogDTO dto = new BlogDTO();

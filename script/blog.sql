@@ -11,3 +11,4 @@ create table blog(
 # drop table blog;
 
 alter table blog add column soft_delete tinyint not null default 0 comment '软删除标签：0（未删除）；1（删除）';
+alter table blog add column category varchar(30) not null default '' comment '类别';
