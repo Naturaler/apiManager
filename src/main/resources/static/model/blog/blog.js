@@ -83,11 +83,23 @@ function parseBlog(blogDto) {
         if (codeFlag) {
             code = code + content + "\n";
         } else {
+            // 换行
+            if (content === "") {
+                printNewLine();
+                continue;
+            }
+            // 普通内容
             printOriginal(content);
         }
     }
     // 加载高亮脚本
     loadHighlightScript();
+}
+
+function printNewLine() {
+    var brE = document.createElement("br");
+    var kernelE = document.getElementById("kernel");
+    kernelE.appendChild(brE);
 }
 
 // h1 h2 h3 ...

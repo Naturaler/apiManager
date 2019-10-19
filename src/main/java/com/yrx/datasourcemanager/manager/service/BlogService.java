@@ -32,7 +32,8 @@ public class BlogService {
             blog.setDescription(vo.getDescription());
             blog.setTags(vo.getTag());
             blog.setUpdateTime(new Date());
-            blogMapper.updateByPrimaryKey(blog);
+            blog.setCategory(vo.getCategory());
+            blogMapper.updateByPrimaryKeyWithBLOBs(blog);
             return "update success";
         }
         Blog pojo = new Blog();
@@ -43,6 +44,7 @@ public class BlogService {
         pojo.setInsertTime(new Date());
         pojo.setUpdateTime(new Date());
         pojo.setSoftDelete(Byte.valueOf("0"));
+        pojo.setCategory(vo.getCategory());
         blogMapper.insert(pojo);
         return "success";
     }

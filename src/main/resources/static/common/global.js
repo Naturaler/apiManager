@@ -36,7 +36,7 @@ function ajaxPost(url, data, fnSucceed, fnFail, fnLoading) {
     ajax.send(data);
 }
 
-// ajax post请求：
+// ajax get请求：
 function ajaxGet(url, fnSucceed, fnFail, fnLoading) {
     var ajax = ajaxObject();
     ajax.open("get", url, true);
