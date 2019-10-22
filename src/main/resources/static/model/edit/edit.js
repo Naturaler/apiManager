@@ -17,7 +17,10 @@ function saveBlog() {
     if (blogId != null) {
         vo.id = blogId;
     }
-    ajaxPost(url, JSON.stringify(vo), null, null, null);
+    ajaxPost(url, JSON.stringify(vo), backToHome, null, null);
+}
+
+function backToHome(responseStr) {
     // 返回首页
     jump("/home");
 }
