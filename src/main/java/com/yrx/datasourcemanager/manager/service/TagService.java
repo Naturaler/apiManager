@@ -4,6 +4,7 @@ import com.yrx.datasourcemanager.manager.dao.BlogMapper;
 import com.yrx.datasourcemanager.manager.dto.BlogDTO;
 import com.yrx.datasourcemanager.manager.dto.Response;
 import com.yrx.datasourcemanager.manager.pojo.Blog;
+import com.yrx.datasourcemanager.manager.pojo.BlogExample;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,7 @@ import java.util.Set;
 @Service
 @Slf4j
 public class TagService {
+
     @Autowired
     private BlogMapper blogMapper;
 
@@ -30,7 +32,10 @@ public class TagService {
     }
 
     public Response<List<BlogDTO>> listByTag(String tag) {
-        List<Blog> blogs = blogMapper.selectByExample(null);
+        BlogExample example = new BlogExample();
+        BlogExample.Criteria criteria = example.createCriteria();
+        criteria.andTagsLike("%" + tag + "%");
+        List<Blog> blogs = blogMapper.selectByExample(example);
         return Response.success(BlogDTO.convertBlogToDto(blogs));
     }
 }
