@@ -1,7 +1,11 @@
 package com.yrx.agent.transformer;
 
-import jdk.internal.org.objectweb.asm.*;
+import javassist.*;
 
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
 import java.security.ProtectionDomain;
@@ -11,7 +15,8 @@ import java.security.ProtectionDomain;
  */
 public class TraceTransformer implements ClassFileTransformer {
 
-    @Override
+    /** 遍历类名和方法名 start */
+    /*@Override
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
         if (className.startsWith("com/yrx/datasourcemanager/manager/api")) {
             System.out.println("class name:{" + className + "}");
@@ -38,6 +43,63 @@ public class TraceTransformer implements ClassFileTransformer {
 
         //忽略调试信息
         reader.accept(visitor, ClassReader.SKIP_DEBUG);
+        return null;
+    }*/
+    /** 遍历类名和方法名 end */
+
+    private byte[] addAop(String className, String methodName) {
+        String currentMethodStr = "System.out.println(\"Thread.currentThread().getStackTrace()[1].getMethodName() = \" + Thread.currentThread().getStackTrace()[1].getMethodName());";
+        ClassPool cp = ClassPool.getDefault();
+        try {
+            CtClass ctClass = cp.get(className);
+            CtMethod declaredMethod = ctClass.getDeclaredMethod(methodName);
+            declaredMethod.insertBefore(currentMethodStr);
+
+
+            return ctClass.toBytecode();
+        } catch (NotFoundException | CannotCompileException | IOException e) {
+            System.out.println("==================== add aop error ! ====================");
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
+        if (className.startsWith("com/yrx/datasourcemanager/manager/api/") && !className.contains("$")) {
+            ClassPool pool = new ClassPool(true);
+            pool.appendClassPath(new LoaderClassPath(loader));
+            try {
+                CtClass cls = pool.makeClass(new ByteArrayInputStream(classfileBuffer));
+
+                CtMethod[] methods = cls.getDeclaredMethods();
+                for (CtMethod method : methods) {
+                    //插入本地变量
+                    method.addLocalVariable("startTime", CtClass.longType);
+                    String codeStrBefore = "startTime=System.currentTimeMillis();";
+                    StringBuilder stringBuilder = new StringBuilder();
+                    stringBuilder.append("System.out.println(")
+                            .append("\"" + method.getName() + " time cost \"").append(" +     (System.currentTimeMillis() - startTime) + \"millisecond\");");
+
+                    String codeStrAfter = stringBuilder.toString();
+                    System.out.println(codeStrBefore);
+                    System.out.println(codeStrAfter);
+                    method.insertBefore(codeStrBefore);
+                    method.insertAfter(codeStrAfter);
+                }
+
+                File file = new File("E:\\software\\intelliJ IDEA\\project\\manager\\agent\\src\\com\\yrx\\agent\\demo\\", cls.getSimpleName() + ".class");
+                try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+                    fileOutputStream.write(cls.toBytecode());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return cls.toBytecode();
+            } catch (Exception e) {
+                System.out.println(" ========= add aop error ========= ");
+                e.printStackTrace();
+            }
+        }
         return null;
     }
 }

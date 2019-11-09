@@ -19,4 +19,17 @@ public class DemoApi {
         System.out.println(JSON.toJSONString(vo));
         return "接收内容为：" + JSON.toJSONString(vo);
     }
+
+    public static void main(String[] args) {
+        DemoApi api = new DemoApi();
+        System.out.println("api.getClassName() = " + api.getClassName());
+        System.out.println("Thread.currentThread().getStackTrace()[1].getMethodName() = " + Thread.currentThread().getStackTrace()[1].getMethodName());
+
+        System.out.println("Thread.currentThread().getStackTrace()[1].getLineNumber() = " + Thread.currentThread().getStackTrace()[1].getLineNumber());
+    }
+
+    private String getClassName() {
+        return this.getClass().getName();
+    }
+
 }

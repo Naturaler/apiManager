@@ -1,3 +1,5 @@
 Manifest-Version: 1.0
-Main-Class: com.yrx.agent.trace.TraceAgent
 Premain-Class: com.yrx.agent.trace.TraceAgent
+Class-Path: lib/javassist-3.26.0-GA.jar
+Main-Class: com.yrx.agent.trace.TraceAgent
+
