@@ -26,6 +26,7 @@ public class DemoApi {
         System.out.println("Thread.currentThread().getStackTrace()[1].getMethodName() = " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
         System.out.println("Thread.currentThread().getStackTrace()[1].getLineNumber() = " + Thread.currentThread().getStackTrace()[1].getLineNumber());
+        System.out.println("Thread.currentThread().getName() = " + Thread.currentThread().getName());
     }
 
     private String getClassName() {

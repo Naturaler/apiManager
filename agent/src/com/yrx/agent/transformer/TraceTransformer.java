@@ -66,7 +66,8 @@ public class TraceTransformer implements ClassFileTransformer {
 
     @Override
     public byte[] transform(ClassLoader loader, String className, Class<?> classBeingRedefined, ProtectionDomain protectionDomain, byte[] classfileBuffer) throws IllegalClassFormatException {
-        if (className.startsWith("com/yrx/datasourcemanager/manager/api/") && !className.contains("$")) {
+        // todo 需要剔除接口
+        if (className.startsWith("com/yrx/datasourcemanager/manager/") && !className.contains("$")) {
             ClassPool pool = new ClassPool(true);
             pool.appendClassPath(new LoaderClassPath(loader));
             try {
@@ -78,8 +79,8 @@ public class TraceTransformer implements ClassFileTransformer {
                     method.addLocalVariable("startTime", CtClass.longType);
                     String codeStrBefore = "startTime=System.currentTimeMillis();";
                     StringBuilder stringBuilder = new StringBuilder();
-                    stringBuilder.append("System.out.println(")
-                            .append("\"" + method.getName() + " time cost \"").append(" +     (System.currentTimeMillis() - startTime) + \"millisecond\");");
+                    stringBuilder.append("System.out.println(\"thread:[\"+Thread.currentThread().getName()+\"]")
+                            .append("method:[" + className + "." + method.getName() + "] time cost [\"").append(" + (System.currentTimeMillis() - startTime) + \"]millisecond\");");
 
                     String codeStrAfter = stringBuilder.toString();
                     System.out.println(codeStrBefore);
@@ -96,7 +97,7 @@ public class TraceTransformer implements ClassFileTransformer {
                 }
                 return cls.toBytecode();
             } catch (Exception e) {
-                System.out.println(" ========= add aop error ========= ");
+                System.out.println(" ========= add aop error ========= className:" + className);
                 e.printStackTrace();
             }
         }
