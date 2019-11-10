@@ -81,7 +81,6 @@ public class BlogApi {
 
     @PostMapping("/list")
     public Response<List<BlogDTO>> list() {
-        log.info("list blog");
         return blogService.list();
     }
 
@@ -102,13 +101,11 @@ public class BlogApi {
 
     @GetMapping("/listTags")
     public Response<Set<String>> listTags() {
-        log.info("list tags");
         return tagService.listTags();
     }
 
     @GetMapping("/listArchives")
     public Response<List<ArchiveDTO>> listArchives() {
-        log.info("list archive");
         return archiveService.listArchives();
     }
 
@@ -120,5 +117,15 @@ public class BlogApi {
     @GetMapping("/deleteById")
     public Response<Integer> deleteById(@RequestParam Integer id) {
         return blogService.deleteById(id);
+    }
+
+    @GetMapping("/listTitles")
+    public Response<List<String>> listTitles(@RequestParam String keyword) {
+        return blogService.listTitles(keyword);
+    }
+
+    @PostMapping("/search")
+    public Response<List<BlogDTO>> search(@RequestBody BlogVO vo) {
+        return blogService.search(vo);
     }
 }

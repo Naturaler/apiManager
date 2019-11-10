@@ -21,4 +21,16 @@
 #navigation .selected {
     background-color: black;
 }
+
+#navigation .searchBox {
+    border: none;
+    width: 25vw;
+    height: 3vh;
+    line-height: 3vh;
+    background-color: #eaeaea;
+}
+
+#navigation .searchBox:hover {
+    background-color: white;
+}
 /* navigation end */

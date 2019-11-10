@@ -21,6 +21,15 @@
   <li onclick="jump('/archive/archive')">Archive</li>
   <li onclick="jump('/tool/tool')">Tool</li>
   <li onclick="jump('/edit/edit')">Edit</li>
+  <li>
+    <input id="search" type="text" placeholder="搜索" list="titleList"
+           onkeyup="listTitles()" onkeydown="search()" class="searchBox">
+<!--    <datalist id="titleList">-->
+<!--      <option value="张三" onclick="searchByTitle('张三')">张三</option>-->
+<!--      <option value="李四" onclick="searchByTitle('李四')">李四</option>-->
+<!--      <option value="王五" onclick="searchByTitle('王五')">王五</option>-->
+<!--    </datalist>-->
+  </li>
 </ul>
 </nav>
 <!-- 导航条 end -->

@@ -10,10 +10,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by r.x on 2019/10/2.
@@ -79,5 +82,29 @@ public class BlogService {
         blog.setSoftDelete(Byte.valueOf("1"));
         blogMapper.updateByPrimaryKey(blog);
         return Response.success(id);
+    }
+
+    public Response<List<String>> listTitles(String keyword) {
+        BlogExample example = new BlogExample();
+        BlogExample.Criteria criteria = example.createCriteria();
+        criteria.andTitleLike("%" + keyword + "%");
+        List<Blog> blogs = blogMapper.selectByExample(example);
+        List<String> titles = blogs.stream().map(Blog::getTitle).collect(Collectors.toList());
+        return Response.success(titles);
+    }
+
+    public Response<List<BlogDTO>> search(BlogVO vo) {
+        BlogExample example = new BlogExample();
+
+        BlogExample.Criteria criteria = example.createCriteria();
+        if (!StringUtils.isEmpty(vo.getTitle())) {
+            criteria.andTitleLike("%" + vo.getTitle() + "%");
+        }
+        List<Blog> blogs = blogMapper.selectByExample(example);
+        if (CollectionUtils.isEmpty(blogs)) {
+            blogs.addAll(blogMapper.selectByExample(new BlogExample()));
+        }
+        List<BlogDTO> dtos = BlogDTO.convertBlogToDto(blogs);
+        return Response.success(dtos);
     }
 }

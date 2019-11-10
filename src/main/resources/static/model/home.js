@@ -1,19 +1,7 @@
-function loadBlog() {
-    var url = "http://localhost:9090/blog/api";
-    ajaxPost(url, null, parseBlog, null, null)
-}
-
-function getById() {
-    var id = document.getElementById("blogId").value;
-    var url = "http://localhost:9090/blog/get?id=" + id;
-    ajaxPost(url, null, parseBlog, null, null)
-}
-
 // 加载列表
 function listBlog() {
     var url = "http://localhost:9090/blog/list";
     ajaxPost(url, null, showBlogs, null, null);
-    // showTime();
 }
 
 function showBlogs(responseStr) {

@@ -1,5 +1,4 @@
 loadBlog();
-// showTime();
 
 function loadBlog() {
     var url = location.search;
