@@ -19,6 +19,10 @@
     <li onclick="jump('/archive/archive')">Archive</li>
     <li onclick="jump('/tool/tool')">Tool</li>
     <li class="selected" onclick="jump('/edit/edit')">Edit</li>
+    <li>
+      <input id="search" type="text" placeholder="搜索" list="titleList"
+             onkeyup="listTitles()" onkeydown="search()" class="searchBox">
+    </li>
   </ul>
 </nav>
 <!-- 导航条 end -->
