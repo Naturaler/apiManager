@@ -10,7 +10,9 @@ function listTitles() {
     var keyword = searchTitle.value;
     if (keyword != null) {
         var url = "http://localhost:9090/blog/listTitles?keyword=" + keyword;
-        ajaxGet(url, showTitleList, null, null);
+        ajaxGet(url, showTitleList, null, function () {
+            console.log("get request unfinished: listTitles");
+        });
     }
 }
 
@@ -35,10 +37,7 @@ function showTitleList(responseStr) {
 }
 
 // 根据title搜索
-function search() {
-    document.addEventListener("keydown", searchByTitle);
-}
-
+document.addEventListener("keydown", searchByTitle);
 // keyCode：enter：13
 function searchByTitle(event) {
     var keyCode = event.keyCode;

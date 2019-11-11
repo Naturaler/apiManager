@@ -17,7 +17,9 @@ function saveBlog() {
     if (blogId != null) {
         vo.id = blogId;
     }
-    ajaxPost(url, JSON.stringify(vo), backToHome, null, null);
+    ajaxPost(url, JSON.stringify(vo), backToHome, null, function () {
+        console.log("response unComplete: saveBlog");
+    });
 }
 
 function backToHome(responseStr) {
@@ -45,7 +47,9 @@ function loadEditingBlog() {
     var blogId = getBlogIdFromUrl();
     if (blogId != null) {
         var url = "http://localhost:9090/blog/getByBlogId?id=" + blogId;
-        ajaxPost(url, null, printEditingBlog, null, null)
+        ajaxPost(url, null, printEditingBlog, null, function () {
+            console.log("response unComplete: loadEditingBlog");
+        })
     }
 }
 
@@ -76,7 +80,9 @@ function printEditingBlog(responseStr) {
 function softDeleteBlog() {
     var blogId = getBlogIdFromUrl();
     var url = "http://localhost:9090/blog/deleteById?id=" + blogId;
-    ajaxGet(url, null, null, null);
+    ajaxGet(url, null, null, function () {
+        console.log("get request unfinished: softDeleteBlog");
+    });
 }
 
 // 加载category
@@ -84,7 +90,9 @@ listCategories();
 
 function listCategories() {
     var url = "http://localhost:9090/config/listCategories";
-    ajaxGet(url, printCategory, null, null);
+    ajaxGet(url, printCategory, null, function () {
+        console.log("get request unfinished: listCategories");
+    });
 }
 
 function printCategory(responseStr) {

@@ -1,6 +1,8 @@
 function listTags() {
     var url = "http://localhost:9090/blog/listTags";
-    ajaxGet(url, printTags, null, null);
+    ajaxGet(url, printTags, null, function () {
+        console.log("get request unfinished: listTags");
+    });
 }
 
 function printTags(responseStr) {

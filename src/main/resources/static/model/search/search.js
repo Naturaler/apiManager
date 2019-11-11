@@ -19,5 +19,7 @@ function searchByTitle(title) {
     var json = {
         "title": titleDecode
     };
-    ajaxPost(url, JSON.stringify(json), showBlogs, null, null);
+    ajaxPost(url, JSON.stringify(json), showBlogs, null, function () {
+        console.log("response unComplete: searchByTitle");
+    });
 }

@@ -14,7 +14,9 @@ function loadBlog() {
 
 function getByBlogId(id) {
     var url = "http://localhost:9090/blog/getByBlogId?id=" + id;
-    ajaxPost(url, null, parseResponse, null, null)
+    ajaxPost(url, null, parseResponse, null, function () {
+        console.log("response unComplete: getByBlogId");
+    })
 }
 
 function parseResponse(responseStr) {

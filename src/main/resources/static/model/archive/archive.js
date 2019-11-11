@@ -1,6 +1,8 @@
 function loadArchives() {
     var url = "http://localhost:9090/blog/listArchives";
-    ajaxGet(url, printArchive, null, null);
+    ajaxGet(url, printArchive, null, function () {
+        console.log("get request unfinished: loadArchives");
+    });
 }
 
 function printArchive(responseStr) {

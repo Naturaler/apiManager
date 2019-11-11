@@ -1,13 +1,18 @@
 // 加载列表
 function listBlog() {
     var url = "http://localhost:9090/blog/list";
-    ajaxPost(url, null, showBlogs, null, null);
+    ajaxPost(url, null, showBlogs, null, function () {
+        console.log("response unComplete: listBlog");
+    });
 }
 
 function showBlogs(responseStr) {
     var response = JSON.parse(responseStr);
     if (response.code === 1) {
         var blogs = response.data;
+        // 先清空子节点
+        var kernel = document.getElementById("kernel");
+        clearSubNode(kernel);
         for (var i = 0; i < blogs.length; i++) {
             var blog = blogs[i];
             printBlog(blog.id, blog.title, blog.description, blog.insertTime, blog.tags);

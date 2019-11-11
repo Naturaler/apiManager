@@ -80,3 +80,11 @@ function ajaxObject() {
 function readBlog(id) {
     location.href = "http://localhost:9090/model/blog/blog.html?blogId=" + id;
 }
+
+// 清空子节点
+function clearSubNode(parentNode) {
+    var childs = parentNode.childNodes;
+    for (var i = 0; i < childs.length; i++) {
+        parentNode.removeChild(childs[i]);
+    }
+}
