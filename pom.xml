@@ -16,6 +16,7 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <spring.boot.start.version>2.1.7.RELEASE</spring.boot.start.version>
     </properties>
 
     <dependencies>
@@ -67,7 +68,7 @@
         <dependency>
             <groupId>org.elasticsearch.client</groupId>
             <artifactId>elasticsearch-rest-high-level-client</artifactId>
-            <version>7.3.2</version>
+            <version>6.4.3</version>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-elasticsearch -->
@@ -76,7 +77,7 @@
             <artifactId>spring-data-elasticsearch</artifactId>
             <version>3.2.0.RELEASE</version>
         </dependency>
-        <!--         elasticsearch end -->
+        <!--  elasticsearch end -->
 
         <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
         <dependency>
@@ -121,6 +122,14 @@
             <version>3.26.0-GA</version>
         </dependency>
         <!-- javassist end -->
+
+        <!-- jpa start -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+            <version>${spring.boot.start.version}</version>
+        </dependency>
+        <!-- jpa end -->
 
 
     </dependencies>
