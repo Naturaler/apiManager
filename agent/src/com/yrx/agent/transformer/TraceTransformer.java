@@ -3,8 +3,6 @@ package com.yrx.agent.transformer;
 import javassist.*;
 
 import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.IllegalClassFormatException;
@@ -45,7 +43,10 @@ public class TraceTransformer implements ClassFileTransformer {
         reader.accept(visitor, ClassReader.SKIP_DEBUG);
         return null;
     }*/
-    /** 遍历类名和方法名 end */
+
+    /**
+     * 遍历类名和方法名 end
+     */
 
     private byte[] addAop(String className, String methodName) {
         String currentMethodStr = "System.out.println(\"Thread.currentThread().getStackTrace()[1].getMethodName() = \" + Thread.currentThread().getStackTrace()[1].getMethodName());";
@@ -70,31 +71,39 @@ public class TraceTransformer implements ClassFileTransformer {
         if (className.startsWith("com/yrx/datasourcemanager/manager/") && !className.contains("$")) {
             ClassPool pool = new ClassPool(true);
             pool.appendClassPath(new LoaderClassPath(loader));
+            // try {
+            //     // pool.appendClassPath("E:\\ppmoney\\project\\agentcollector\\target");
+            //     pool.appendClassPath("E:\\ppmoney\\project\\agentcollector\\target\\agent-collector-1.0-SNAPSHOT.jar");
+            // } catch (NotFoundException e) {
+            //     System.out.println("appendClassPath error! msg:{" + e.getMessage() + "}");
+            //     e.printStackTrace();
+            // }
             try {
                 CtClass cls = pool.makeClass(new ByteArrayInputStream(classfileBuffer));
+                if (cls.isInterface()) {
+                    return null;
+                }
 
                 CtMethod[] methods = cls.getDeclaredMethods();
                 for (CtMethod method : methods) {
-                    //插入本地变量
-                    method.addLocalVariable("startTime", CtClass.longType);
-                    String codeStrBefore = "startTime=System.currentTimeMillis();";
-                    StringBuilder stringBuilder = new StringBuilder();
-                    stringBuilder.append("System.out.println(\"thread:[\"+Thread.currentThread().getName()+\"]")
-                            .append("method:[" + className + "." + method.getName() + "] time cost [\"").append(" + (System.currentTimeMillis() - startTime) + \"]millisecond\");");
-
-                    String codeStrAfter = stringBuilder.toString();
-                    System.out.println(codeStrBefore);
-                    System.out.println(codeStrAfter);
-                    method.insertBefore(codeStrBefore);
-                    method.insertAfter(codeStrAfter);
+                    if (method.isEmpty()) {
+                        System.out.println("{" + method.getName() + "} method is empty!");
+                        continue;
+                    }
+                    String methodBefore = "com.yrx.agent.agentCollector.log.TraceLog.before(Thread.currentThread().getName(), \"" + className + "\", \"" + method.getName() + "\");";
+                    String methodAfter = "com.yrx.agent.agentCollector.log.TraceLog.after(Thread.currentThread().getName(), \"" + className + "\", \"" + method.getName() + "\");";
+                    System.out.println("agent collector before:" + methodBefore);
+                    System.out.println("agent collector after:" + methodAfter);
+                    method.insertBefore(methodBefore);
+                    method.insertAfter(methodAfter);
                 }
 
-                File file = new File("E:\\software\\intelliJ IDEA\\project\\manager\\agent\\src\\com\\yrx\\agent\\demo\\", cls.getSimpleName() + ".class");
-                try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
-                    fileOutputStream.write(cls.toBytecode());
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                // File file = new File("E:\\software\\intelliJ IDEA\\project\\manager\\agent\\src\\com\\yrx\\agent\\demo\\", cls.getSimpleName() + ".class");
+                // try (FileOutputStream fileOutputStream = new FileOutputStream(file)) {
+                //     fileOutputStream.write(cls.toBytecode());
+                // } catch (Exception e) {
+                //     e.printStackTrace();
+                // }
                 return cls.toBytecode();
             } catch (Exception e) {
                 System.out.println(" ========= add aop error ========= className:" + className);
