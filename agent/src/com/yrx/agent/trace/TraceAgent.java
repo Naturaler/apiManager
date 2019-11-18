@@ -14,7 +14,7 @@ public class TraceAgent {
     public static void premain(String option, Instrumentation ins) {
         JarFile jarFile = null;
         try {
-            jarFile = new JarFile("E:\\ppmoney\\project\\agentcollector\\target\\agent-collector-1.0-SNAPSHOT.jar");
+            jarFile = new JarFile("E:\\ppmoney\\project\\agentcollector\\target\\agent-collector-1.0-SNAPSHOT-jar-with-dependencies.jar");
         } catch (IOException e) {
             System.out.println("jar file construct error ! msg:{" + e.getMessage() + "}");
             e.printStackTrace();
