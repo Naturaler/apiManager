@@ -1,6 +1,7 @@
 package com.yrx.datasourcemanager.manager.util;
 
 import com.alibaba.fastjson.JSON;
+import com.yrx.datasourcemanager.manager.pojo.trace.TraceTree;
 import lombok.Data;
 import net.sourceforge.plantuml.SourceStringReader;
 import org.springframework.util.StringUtils;
@@ -13,7 +14,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
 import java.util.List;
-import java.util.Stack;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -23,17 +23,10 @@ import java.util.stream.Stream;
 public class PlantUmlUtil {
 
     public static void main(String[] args) {
-        System.out.println("TraceLog.convertStrToBean(\"\") = " + TraceLog.convertStrToBean(""));
         readAndGenPng("E:\\tmp\\agent\\trace_v2.txt");
     }
 
     public static boolean readAndGenPng(String log) {
-        Stack<TraceLog> stack = new Stack<>();
-        StringBuilder builder = new StringBuilder();
-        String lineSeparator = System.lineSeparator();
-        builder.append("@startuml").append(lineSeparator);
-        builder.append("autonumber").append(lineSeparator);
-        builder.append(lineSeparator);
         try {
             Path path = new File(log).toPath();
             Stream<String> lines = Files.lines(path);
@@ -41,24 +34,23 @@ public class PlantUmlUtil {
                     .filter(line -> !StringUtils.isEmpty(line))
                     .map(TraceLog::convertStrToBean)
                     .collect(Collectors.toList());
-            for (TraceLog traceLog : list) {
-                if (traceLog.flag.equals("before")) {
-                    if (stack.size() > 0) {
-                        paint(stack.peek(), traceLog, builder, " -> ", lineSeparator);
-                    }
-                    stack.push(traceLog);
+            // 先设置根节点
+            TraceLog root = list.get(0);
+            TraceTree<TraceLog> traceTree = new TraceTree<>(root);
+            TraceTree<TraceLog> pointer = traceTree;
+            for (int i = 1; i < list.size(); i++) {
+                TraceLog node = list.get(i);
+                if (node.flag.equals("before")) {
+                    pointer = pointer.appendSon(node);
                 } else {
-                    TraceLog peek = stack.peek();
-                    if (peek.className.equals(traceLog.className) && peek.methodName.equals(traceLog.methodName) && peek.flag.equals("before")) {
-                        paint(stack.peek(), traceLog, builder, " <- ", lineSeparator);
+                    if (pointer.getParent() == null) {
+                        break;
                     }
-                    paint(traceLog, stack.pop(), builder, " <- ", lineSeparator);
-
+                    pointer = pointer.getParent();
                 }
             }
-            builder.append("@enduml").append(lineSeparator);
-            System.out.println("builder.toString() = " + builder.toString());
-            genPng(builder);
+            System.out.println("JSON.toJSONString(traceTree) = " + JSON.toJSONString(traceTree));
+            paint(traceTree);
             return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -66,15 +58,59 @@ public class PlantUmlUtil {
         }
     }
 
-    private static String getDirectionByFlag(String flag) {
-        switch (flag) {
-            case "before":
-                return " -> ";
-            case "after":
-                return " <- ";
-            default:
-                return " -> ";
+    private static void paint(TraceTree<TraceLog> traceTree) {
+        String lineSeparator = System.lineSeparator();
+        StringBuilder builder = new StringBuilder();
+        builder.append("@startuml").append(lineSeparator);
+        builder.append("start").append(lineSeparator);
+        builder.append(lineSeparator);
+
+        TraceLog root = traceTree.getValue();
+        lineFormat(builder, root);
+        paintSon(traceTree.getSon(), builder);
+
+        builder.append(lineSeparator);
+        builder.append("stop").append(lineSeparator);
+        builder.append("@enduml").append(lineSeparator);
+
+        System.out.println("builder.toString() = ");
+        System.out.println(builder.toString());
+        genPng(builder);
+    }
+
+    private static void paintSon(List<TraceTree<TraceLog>> traceTree, StringBuilder builder) {
+        String lineSeparator = System.lineSeparator();
+        if (traceTree.size() == 1) {
+            TraceLog son = traceTree.get(0).getValue();
+            lineFormat(builder, son);
+            if (traceTree.get(0).getSon() != null) {
+                paintSon(traceTree.get(0).getSon(), builder);
+            }
+        } else {
+            builder.append("fork").append(lineSeparator);
+            TraceTree<TraceLog> first = traceTree.get(0);
+            lineFormat(builder, first.getValue());
+            if (first.getSon() != null) {
+                paintSon(first.getSon(), builder);
+            }
+            for (int i = 1; i < traceTree.size(); i++) {
+                TraceTree<TraceLog> son = traceTree.get(i);
+                builder.append("fork again").append(lineSeparator);
+                lineFormat(builder, son.getValue());
+                if (son.getSon() != null) {
+                    paintSon(son.getSon(), builder);
+                }
+            }
+            builder.append("end fork").append(lineSeparator);
         }
+    }
+
+    private static void lineFormat(StringBuilder builder, TraceLog item) {
+        String lineSeparator = System.lineSeparator();
+        builder.append(":")
+                .append(item.className.replace("/", "_")).append("_").append(item.methodName)
+                .append(";")
+                .append(lineSeparator);
     }
 
     private static void genPng(StringBuilder builder) {
@@ -87,15 +123,6 @@ public class PlantUmlUtil {
             e.printStackTrace();
         }
     }
-
-    private static void paint(TraceLog first, TraceLog second, StringBuilder builder, String direction, String lineSeparator) {
-        builder.append(first.className.replace("/", "_")).append("_").append(first.methodName)
-                .append(direction)
-                .append(second.className.replace("/", "_")).append("_").append(second.methodName)
-                .append(": ")
-                .append(lineSeparator);
-    }
-
 
     @Data
     private static class TraceLog {

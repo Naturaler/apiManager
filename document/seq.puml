@@ -1,0 +1,18 @@
+@startuml
+start
+
+:com_yrx_datasourcemanager_manager_ManagerApplication_main;
+fork
+:com_yrx_datasourcemanager_manager_config_ElasticsearchConfig_client;
+fork
+:com_yrx_datasourcemanager_manager_config_ElasticsearchConfig_client3;
+:com_yrx_datasourcemanager_manager_config_ElasticsearchConfig_client4;
+fork again
+:com_yrx_datasourcemanager_manager_config_ElasticsearchConfig_client5;
+end fork
+fork again
+:com_yrx_datasourcemanager_manager_config_ElasticsearchConfig_client2;
+end fork
+
+stop
+@enduml
