@@ -1,6 +1,7 @@
 package com.yrx.datasourcemanager.manager.util;
 
 import com.alibaba.fastjson.JSON;
+import com.yrx.datasourcemanager.manager.pojo.Blog;
 import com.yrx.datasourcemanager.manager.util.encry.Base64Util;
 import com.yrx.datasourcemanager.manager.vo.DemoVO;
 import org.junit.Test;
@@ -8,8 +9,6 @@ import org.junit.Test;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-
-import static org.junit.Assert.*;
 
 /**
  * Created by r.x on 2019/11/7.
@@ -24,6 +23,8 @@ public class HttpUtilTest {
 
     @Test
     public void get1() {
+        Blog[] blogs = new Blog[5];
+        System.out.println("blogs = " + blogs.getClass());
     }
 
     @Test
@@ -55,5 +56,6 @@ public class HttpUtilTest {
 
     @Test
     public void postJson1() {
+        System.out.println("HttpUtilTest.class.getName() = " + HttpUtilTest.class.getName());
     }
 }
