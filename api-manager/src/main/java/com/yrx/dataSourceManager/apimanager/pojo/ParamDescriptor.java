@@ -1,6 +1,7 @@
 package com.yrx.dataSourceManager.apimanager.pojo;
 
 import lombok.Data;
+import org.springframework.asm.Type;
 
 /**
  * Created by r.x on 2019/12/2.
@@ -10,5 +11,5 @@ import lombok.Data;
 public class ParamDescriptor {
     private String name;
     private String desc;
-    private String type;
+    private Type type;
 }

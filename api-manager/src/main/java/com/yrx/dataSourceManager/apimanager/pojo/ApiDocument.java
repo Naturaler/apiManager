@@ -1,9 +1,10 @@
 package com.yrx.dataSourceManager.apimanager.pojo;
 
 import com.yrx.dataSourceManager.apimanager.constant.HttpType;
-import com.yrx.dataSourceManager.apimanager.constant.ParamType;
+import lombok.Builder;
 import lombok.Data;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,11 +12,24 @@ import java.util.Map;
  * 接口文档
  */
 @Data
+@Builder
 public class ApiDocument {
     private String desc;
     private HttpType httpType;
     private String url;
     private Map<String, String> header;
-    private ParamType paramType;
-    private Object response;
+    private List<ParamDescriptor> params;
+    private Class<?> response;
+
+    @Override
+    public String toString() {
+        return "ApiDocument{" +
+                "desc='" + desc + '\'' +
+                ", httpType=" + httpType +
+                ", url='" + url + '\'' +
+                ", header=" + header +
+                ", params=" + params +
+                ", response=" + response +
+                '}';
+    }
 }
