@@ -1,0 +1,9 @@
+POST http://localhost:9091/demo/post
+Content-Type: application/json
+
+{
+  "username": "username",
+  "password": "password"
+}
+
+###
